@@ -20,6 +20,23 @@ export type ServiceCard = {
   category: string;
   title: string;
   body: string;
+  /** Maps to a lucide icon in components/crypto/Services.tsx — keeps content JSON-serializable for CMS. */
+  iconKey: "users" | "zap" | "sparkles" | "messages";
+};
+
+export type ResultCard = {
+  id: string;
+  /**
+   * Honesty rule: "crypto" = a real crypto-client case study (cleared for public claim).
+   * "transferable" = proof from adjacent work, framed as transferable discipline.
+   * Cards of type "crypto" always render above transferable ones.
+   */
+  type: "crypto" | "transferable";
+  brand: string;
+  value: number;
+  suffix?: string;
+  metricLabel: string;
+  framing: string;
 };
 
 export const cryptoSeo = {
@@ -99,6 +116,7 @@ export const cryptoServices: ServiceCard[] = [
     category: "CREATOR AND KOL CAMPAIGNS",
     title: "Route your launch through creators your buyers already trust.",
     body: "Sixty thousand creators across TikTok, Instagram, YouTube and X. We match by audience, brief so the message survives the edit, and measure each creator on their own numbers. No spray, no one-post-and-gone.",
+    iconKey: "users",
   },
   {
     id: "performance-paid",
@@ -107,6 +125,7 @@ export const cryptoServices: ServiceCard[] = [
     title:
       "Paid media that lives inside the rules, not one violation from a ban.",
     body: "We run across the channels that approve crypto and the native networks built for it. Every campaign is tracked to on-chain and off-chain conversions, so spend follows what actually brings holders in.",
+    iconKey: "zap",
   },
   {
     id: "brand-creative",
@@ -115,6 +134,7 @@ export const cryptoServices: ServiceCard[] = [
     title:
       "Positioning you can say in a sentence, and video at the volume the feed demands.",
     body: "Our studio turns a whitepaper into a story a normal person understands, then produces the high-volume video that keeps a token in the conversation past launch week.",
+    iconKey: "sparkles",
   },
   {
     id: "community-growth",
@@ -123,6 +143,7 @@ export const cryptoServices: ServiceCard[] = [
     title:
       "A community that holds, not a Discord that empties after the airdrop.",
     body: "Ambassador programs, Telegram and Discord growth, and always-on content that gives holders a reason to stay. We build the room and we keep it warm.",
+    iconKey: "messages",
   },
 ];
 
@@ -155,6 +176,34 @@ export const cryptoNetworks = {
     "TON",
   ],
 } as const;
+
+/**
+ * Proof for the Results section. Framed honestly: these are transferable results
+ * from adjacent client work, not invented crypto claims. When a real crypto case
+ * study is cleared, add it with type: "crypto" and it renders first — no code change.
+ */
+export const cryptoResults: ResultCard[] = [
+  {
+    id: "bactrack",
+    type: "transferable",
+    brand: "BACtrack",
+    value: 400,
+    suffix: "%",
+    metricLabel: "revenue growth",
+    framing:
+      "The same paid-media discipline we apply to token campaigns — tracked to the conversion, scaled on what works.",
+  },
+  {
+    id: "nutriseed",
+    type: "transferable",
+    brand: "Nutriseed",
+    value: 350,
+    suffix: "%",
+    metricLabel: "sales increase",
+    framing:
+      "A creator programme playbook that maps 1:1 to KOL launches — matched by audience, measured per creator.",
+  },
+];
 
 export const cryptoLaunchSteps = [
   {

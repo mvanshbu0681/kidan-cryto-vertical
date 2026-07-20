@@ -33,6 +33,41 @@
     #2a35a0
   );
 
+  /* Static CSS replacement for the WebGL hero veil (perf rule: CSS+SVG over shaders) */
+  --background-image-hero-veil: radial-gradient(
+      ellipse 60% 50% at 78% 12%,
+      rgba(58, 79, 214, 0.32) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 12% 85%,
+      rgba(58, 79, 214, 0.14) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 90% 70% at 50% 40%,
+      rgba(21, 25, 34, 0.6) 0%,
+      transparent 100%
+    );
+
+  /* Top-edge glow that lights up on service-card hover */
+  --background-image-panel-edge: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(102, 117, 234, 0.9) 50%,
+    transparent 100%
+  );
+
+  /* Elevation for instrument-panel cards */
+  --shadow-panel: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 32px -16px rgba(0, 0, 0, 0.6);
+  --shadow-panel-hover: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 48px -16px rgba(0, 0, 0, 0.7),
+    0 0 24px -8px rgba(58, 79, 214, 0.35);
+
+  /* Page-wide easing signature */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
   --animate-marquee-seamless: marquee-seamless var(--marquee-duration, 40s)
     linear infinite;
@@ -60,6 +95,46 @@
 @keyframes border-glow-spin {
   to {
     --border-glow-angle: 360deg;
+  }
+}
+
+@keyframes dialog-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
   }
 }
 

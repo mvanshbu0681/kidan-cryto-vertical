@@ -27,10 +27,7 @@ export default function FadeContent({
   const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (reduceMotion) {
-      setVisible(true);
-      return;
-    }
+    if (reduceMotion) return;
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -46,6 +43,8 @@ export default function FadeContent({
     return () => io.disconnect();
   }, [threshold, reduceMotion]);
 
+  const shown = reduceMotion || visible;
+
   return (
     <div
       ref={ref}
@@ -54,10 +53,10 @@ export default function FadeContent({
         reduceMotion
           ? undefined
           : {
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(28px)",
+              opacity: shown ? 1 : 0,
+              transform: shown ? "translateY(0)" : "translateY(28px)",
               filter: blur
-                ? visible
+                ? shown
                   ? "blur(0px)"
                   : "blur(6px)"
                 : undefined,

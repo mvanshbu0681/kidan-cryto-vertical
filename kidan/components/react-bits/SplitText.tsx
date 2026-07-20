@@ -14,7 +14,11 @@ type SplitTextProps = {
   tag?: "h1" | "h2" | "p" | "span";
 };
 
-/** React Bits–style SplitText (GSAP character stagger). */
+/**
+ * React Bits–style SplitText (GSAP character stagger).
+ * Chars are grouped inside nowrap word spans so lines only break
+ * at word boundaries — never mid-word.
+ */
 export default function SplitText({
   text,
   className,
@@ -47,17 +51,25 @@ export default function SplitText({
     return <Tag className={className}>{text}</Tag>;
   }
 
+  const words = text.split(" ");
+
   return (
     <Tag ref={ref as never} className={cn("inline-block", className)} aria-label={text}>
-      {text.split("").map((char, i) => (
-        <span
-          key={`${char}-${i}`}
-          data-char
-          className="inline-block whitespace-pre"
-          style={{ opacity: 0 }}
-          aria-hidden
-        >
-          {char === " " ? "\u00A0" : char}
+      {words.map((word, wi) => (
+        <span key={`${word}-${wi}`}>
+          <span className="inline-block whitespace-nowrap" aria-hidden>
+            {word.split("").map((char, ci) => (
+              <span
+                key={`${char}-${ci}`}
+                data-char
+                className="inline-block"
+                style={{ opacity: 0 }}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
+          {wi < words.length - 1 ? " " : null}
         </span>
       ))}
     </Tag>

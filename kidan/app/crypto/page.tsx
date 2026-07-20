@@ -7,8 +7,10 @@ import { Services } from "@/components/crypto/Services";
 import { Networks } from "@/components/crypto/Networks";
 import { LaunchFlow } from "@/components/crypto/LaunchFlow";
 import { Compliance } from "@/components/crypto/Compliance";
+import { Results } from "@/components/crypto/Results";
 import { Closing } from "@/components/crypto/Closing";
 import { PageNoise } from "@/components/crypto/PageNoise";
+import { ScrollDepthTracker } from "@/components/crypto/ScrollDepthTracker";
 import { cryptoSeo } from "@/content/crypto";
 
 export const metadata: Metadata = {
@@ -52,12 +54,26 @@ const jsonLd = {
 
 export default function CryptoPage() {
   return (
-    <main className="relative min-h-screen bg-kidan-ink text-white selection:bg-kidan-indigo/30">
+    <main className="relative min-h-screen text-white selection:bg-kidan-indigo/30">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
+      {/*
+        Global page background (background.jpg). Fixed layer behind everything;
+        the Hero paints its own opaque veil over it. Sections stay semi-transparent
+        so the mesh reads through between panels.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-kidan-ink bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url(/background.jpg)" }}
+      />
+
       <PageNoise />
+      <ScrollDepthTracker />
+
       <div className="relative z-[2]">
         <Hero />
         <Ticker />
@@ -67,6 +83,7 @@ export default function CryptoPage() {
         <Networks />
         <LaunchFlow />
         <Compliance />
+        <Results />
         <Closing />
       </div>
     </main>

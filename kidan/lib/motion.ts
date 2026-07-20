@@ -1,32 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+/** SSR-safe media query subscription (no setState-in-effect). */
+function useMediaQuery(query: string): boolean {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      const mq = window.matchMedia(query);
+      mq.addEventListener("change", onStoreChange);
+      return () => mq.removeEventListener("change", onStoreChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => false
+  );
+}
 
 /** Shared reduced-motion hook for React Bits wrappers. */
 export function usePrefersReducedMotion(): boolean {
-  const [reduce, setReduce] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduce(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduce(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  return reduce;
+  return useMediaQuery("(prefers-reduced-motion: reduce)");
 }
 
 export function useIsMobile(breakpoint = 768): boolean {
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
-    setMobile(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setMobile(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, [breakpoint]);
-
-  return mobile;
+  return useMediaQuery(`(max-width: ${breakpoint}px)`);
 }

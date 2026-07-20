@@ -51,6 +51,7 @@ export default function CurvedLoop({
   const viewBoxHeight = Math.ceil(baseline + curveAmount + 28);
 
   const dragRef = useRef(false);
+  const [dragging, setDragging] = useState(false);
   const lastXRef = useRef(0);
   const dirRef = useRef(direction);
   const velRef = useRef(0);
@@ -112,6 +113,7 @@ export default function CurvedLoop({
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (!interactive || reduceMotion) return;
     dragRef.current = true;
+    setDragging(true);
     lastXRef.current = e.clientX;
     velRef.current = 0;
     (e.target as Element).setPointerCapture(e.pointerId);
@@ -139,14 +141,11 @@ export default function CurvedLoop({
   const endDrag = () => {
     if (!interactive) return;
     dragRef.current = false;
+    setDragging(false);
     dirRef.current = velRef.current > 0 ? "right" : "left";
   };
 
-  const cursorStyle = interactive
-    ? dragRef.current
-      ? "grabbing"
-      : "grab"
-    : "auto";
+  const cursorStyle = interactive ? (dragging ? "grabbing" : "grab") : "auto";
 
   return (
     <div

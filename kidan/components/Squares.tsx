@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "../lib/utils";
+import { usePrefersReducedMotion } from "@/lib/motion";
 
 interface SquaresProps {
   direction?: "right" | "left" | "up" | "down";
@@ -29,15 +30,7 @@ export const Squares: React.FC<SquaresProps> = ({
     x: number;
     y: number;
   } | null>(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -131,9 +124,6 @@ export const Squares: React.FC<SquaresProps> = ({
     if (!rect) return;
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
-
-    const startX = Math.floor(drawOffset.current.x / squareSize) * squareSize;
-    const startY = Math.floor(drawOffset.current.y / squareSize) * squareSize;
 
     const hoveredX = Math.floor(
       (mouseX + (drawOffset.current.x % squareSize)) / squareSize
