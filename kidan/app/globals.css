@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* Crypto vertical — brief palette */
+  --color-kidan-ink: #0e1116;
+  --color-kidan-ivory: #f7f5ef;
+  --color-kidan-indigo: #3a4fd6;
+  --color-kidan-lightIndigo: #6675ea;
+
+  /* Supporting surfaces */
+  --color-kidan-card: #151922;
+  --color-kidan-navymid: #1c2230;
+  --color-kidan-obsidian: #0a0c10;
+  /* Tuned for WCAG AA on ink (#0E1116) */
+  --color-kidan-silver: #c4cad8;
+  --color-kidan-slate: #9aa3b8;
+  --color-kidan-graphite: #3a3e52;
+
+  /* Aliases kept for existing component class names */
+  --color-kidan-midnight: #0e1116;
+  --color-kidan-brand: #3a4fd6;
+  --color-kidan-electric: #6675ea;
+  --color-kidan-coolWhite: #f7f5ef;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-grotesk: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+
+  --background-image-brand-gradient: linear-gradient(
+    to bottom,
+    #6675ea,
+    #3a4fd6,
+    #2a35a0
+  );
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-seamless: marquee-seamless var(--marquee-duration, 40s)
+    linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
+/* Two equal-width copies, no parent gap — exact -50% loop */
+@keyframes marquee-seamless {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gradient-text-shift {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes border-glow-spin {
+  to {
+    --border-glow-angle: 360deg;
+  }
+}
+
+@property --border-glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.animate-gradient-text {
+  animation-name: gradient-text-shift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animate-border-glow {
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-seamless,
+  .animate-gradient-text {
+    animation: none !important;
+  }
+}
+
+body {
+  background-color: var(--color-kidan-ink);
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
