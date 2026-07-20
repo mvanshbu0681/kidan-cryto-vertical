@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/*
+ * Fine-pointer hover only. Touch devices skip lift / edge-glow so
+ * :hover does not stick after a tap (PRD responsive note).
+ */
+@custom-variant can-hover (@media (hover: hover) and (pointer: fine));
+
 @theme {
   /* Crypto vertical — brief palette */
   --color-kidan-ink: #0e1116;
@@ -58,6 +64,32 @@
     transparent 100%
   );
 
+  /* Primary CTA — indigo→lightIndigo gradient + soft outer glow */
+  --background-image-cta-gradient: linear-gradient(
+    120deg,
+    #3a4fd6 0%,
+    #6675ea 55%,
+    #3a4fd6 100%
+  );
+  --shadow-cta-glow: 0 10px 36px -10px rgba(58, 79, 214, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --shadow-cta-glow-hover: 0 18px 56px -12px rgba(102, 117, 234, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  /* Cursor spotlight wash used by TerminalPanel */
+  --background-image-panel-spotlight: radial-gradient(
+    560px circle at var(--panel-x, 50%) var(--panel-y, 50%),
+    rgba(102, 117, 234, 0.1),
+    transparent 45%
+  );
+
+  /* Subtle radial ground so scroll has beats, not one black slab */
+  --background-image-ground-radial: radial-gradient(
+    ellipse 70% 55% at 50% 0%,
+    rgba(58, 79, 214, 0.09) 0%,
+    transparent 70%
+  );
+
   /* Elevation for instrument-panel cards */
   --shadow-panel: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
     0 12px 32px -16px rgba(0, 0, 0, 0.6);
@@ -71,6 +103,8 @@
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
   --animate-marquee-seamless: marquee-seamless var(--marquee-duration, 40s)
     linear infinite;
+  --animate-orbit-spin: orbit-spin 48s linear infinite;
+  --animate-node-pulse: node-pulse 2.2s var(--ease-out-expo) infinite;
 }
 
 @keyframes marquee {
@@ -95,6 +129,26 @@
 @keyframes border-glow-spin {
   to {
     --border-glow-angle: 360deg;
+  }
+}
+
+/* Slow orbit for the hero terminal visual's rings */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Soft expanding ring on the active launch-flow node */
+@keyframes node-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 117, 234, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(102, 117, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 117, 234, 0);
   }
 }
 
@@ -157,7 +211,9 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-marquee-seamless,
-  .animate-gradient-text {
+  .animate-gradient-text,
+  .animate-orbit-spin,
+  .animate-node-pulse {
     animation: none !important;
   }
 }

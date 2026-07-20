@@ -7,6 +7,8 @@ type BorderGlowProps = {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
+  /** Seconds per border rotation — higher is slower. */
+  speed?: number;
 };
 
 /** React Bits–style Border Glow frame. */
@@ -14,6 +16,7 @@ export default function BorderGlow({
   children,
   className,
   glowColor = "58, 79, 214",
+  speed = 8,
 }: BorderGlowProps) {
   const reduceMotion = usePrefersReducedMotion();
 
@@ -25,10 +28,10 @@ export default function BorderGlow({
           aria-hidden
         >
           <div
-            className="absolute inset-[-50%] opacity-70"
+            className="absolute inset-[-50%] opacity-90"
             style={{
               background: `conic-gradient(from var(--border-glow-angle, 0deg), transparent 0%, rgba(${glowColor},0.75) 12%, transparent 28%, transparent 50%, rgba(102,117,234,0.55) 62%, transparent 78%)`,
-              animation: "border-glow-spin 8s linear infinite",
+              animation: `border-glow-spin ${speed}s linear infinite`,
             }}
           />
         </div>

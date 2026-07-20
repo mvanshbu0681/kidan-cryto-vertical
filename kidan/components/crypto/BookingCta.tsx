@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { GradientCta } from "@/components/crypto/ui/GradientCta";
 import { BookingDialog } from "@/components/crypto/BookingDialog";
 import { trackBookingConversion } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -32,32 +32,30 @@ export function BookingCta({
 
   const arrow = (
     <ArrowRight
-      className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+      className="h-4 w-4 transition-transform duration-300 ease-out-expo can-hover:group-hover/cta:translate-x-1"
       aria-hidden
     />
   );
 
   if (!bookingUrl) {
     return (
-      <Button
-        asChild
+      <GradientCta
+        href={MAILTO_FALLBACK}
         size={size}
-        className={cn("group", className)}
+        className={cn(className)}
         onClick={() => trackBookingConversion(location)}
       >
-        <a href={MAILTO_FALLBACK}>
-          {label}
-          {arrow}
-        </a>
-      </Button>
+        {label}
+        {arrow}
+      </GradientCta>
     );
   }
 
   return (
     <>
-      <Button
+      <GradientCta
         size={size}
-        className={cn("group", className)}
+        className={cn(className)}
         onClick={() => {
           trackBookingConversion(location);
           setOpen(true);
@@ -65,7 +63,7 @@ export function BookingCta({
       >
         {label}
         {arrow}
-      </Button>
+      </GradientCta>
       <BookingDialog open={open} onOpenChange={setOpen} bookingUrl={bookingUrl} />
     </>
   );

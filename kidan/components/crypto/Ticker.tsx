@@ -13,10 +13,10 @@ function PhraseRun({ hidden = false }: { hidden?: boolean }) {
       {run.map((phrase, i) => (
         <span
           key={`${phrase}-${i}`}
-          className="flex shrink-0 items-center font-mono text-xs font-bold uppercase tracking-[0.2em] text-kidan-silver"
+          className="flex shrink-0 items-center font-mono text-xs font-bold uppercase tracking-[0.2em] text-kidan-ivory/90"
         >
           <span className="px-6">{phrase}</span>
-          <span className="text-kidan-indigo" aria-hidden>
+          <span className="text-kidan-lightIndigo" aria-hidden>
             {SEPARATOR}
           </span>
         </span>
@@ -46,9 +46,11 @@ export function Ticker() {
           ))}
         </ul>
       ) : (
-        <div className="flex w-max animate-marquee-seamless [--marquee-duration:36s] hover:[animation-play-state:paused]">
-          <PhraseRun />
-          <PhraseRun hidden />
+        <div className="[mask-image:linear-gradient(to_right,transparent,white_6%,white_94%,transparent)]">
+          <div className="flex w-max animate-marquee-seamless [--marquee-duration:36s] can-hover:hover:[animation-play-state:paused]">
+            <PhraseRun />
+            <PhraseRun hidden />
+          </div>
         </div>
       )}
     </section>

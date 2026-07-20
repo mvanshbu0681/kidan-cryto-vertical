@@ -1,17 +1,41 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/crypto/Hero";
 import { Ticker } from "@/components/crypto/Ticker";
 import { ProofBar } from "@/components/crypto/ProofBar";
-import { Problem } from "@/components/crypto/Problem";
-import { Services } from "@/components/crypto/Services";
-import { Networks } from "@/components/crypto/Networks";
-import { LaunchFlow } from "@/components/crypto/LaunchFlow";
-import { Compliance } from "@/components/crypto/Compliance";
-import { Results } from "@/components/crypto/Results";
-import { Closing } from "@/components/crypto/Closing";
 import { PageNoise } from "@/components/crypto/PageNoise";
 import { ScrollDepthTracker } from "@/components/crypto/ScrollDepthTracker";
 import { cryptoSeo } from "@/content/crypto";
+
+/**
+ * Below-fold sections are code-split so the first paint stays light.
+ * Hero + Ticker + ProofBar stay eager (above / near fold).
+ */
+const Problem = dynamic(() =>
+  import("@/components/crypto/Problem").then((m) => ({ default: m.Problem }))
+);
+const Services = dynamic(() =>
+  import("@/components/crypto/Services").then((m) => ({ default: m.Services }))
+);
+const Networks = dynamic(() =>
+  import("@/components/crypto/Networks").then((m) => ({ default: m.Networks }))
+);
+const LaunchFlow = dynamic(() =>
+  import("@/components/crypto/LaunchFlow").then((m) => ({
+    default: m.LaunchFlow,
+  }))
+);
+const Compliance = dynamic(() =>
+  import("@/components/crypto/Compliance").then((m) => ({
+    default: m.Compliance,
+  }))
+);
+const Results = dynamic(() =>
+  import("@/components/crypto/Results").then((m) => ({ default: m.Results }))
+);
+const Closing = dynamic(() =>
+  import("@/components/crypto/Closing").then((m) => ({ default: m.Closing }))
+);
 
 export const metadata: Metadata = {
   title: cryptoSeo.title,
