@@ -84,15 +84,16 @@ export default function CryptoPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/*
-        Global page background (background.jpg). Fixed layer behind everything;
-        the Hero paints its own opaque veil over it. Sections stay semi-transparent
-        so the mesh reads through between panels.
-      */}
+      {/* Global background image — visible across all sections (brief depth). */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-kidan-ink bg-cover bg-center bg-no-repeat"
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url(/background.jpg)" }}
+      />
+      {/* Light ink scrim for text contrast without blurring the image. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[1] bg-kidan-ink/25"
       />
 
       <PageNoise />

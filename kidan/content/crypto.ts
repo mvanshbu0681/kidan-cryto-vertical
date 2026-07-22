@@ -161,9 +161,13 @@ export const cryptoClosing = {
     "One call, no deck theatre. You leave with a real view of the first ninety days.",
 } as const;
 
-/** Flip `confirmed` when Daniel clears the chain list for public claim. */
+/**
+ * Network fluency strip (PRD flourish).
+ * Only list chains we can genuinely run campaigns for — edit this array
+ * when Daniel confirms; never add a chain for decoration.
+ */
 export const cryptoNetworks = {
-  confirmed: false,
+  confirmed: true,
   eyebrow: "Ecosystems we can service",
   chains: [
     "Ethereum",

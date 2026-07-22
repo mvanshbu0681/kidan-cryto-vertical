@@ -10,7 +10,7 @@ import { usePrefersReducedMotion } from "@/lib/motion";
 export function Closing() {
   const reduceMotion = usePrefersReducedMotion();
 
-    /** Faint radial follow behind the card — CSS vars only, no re-render. */
+  /** Faint radial follow behind the card — CSS vars only, no re-render. */
   const handleFollow = useCallback((e: MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--cx", `${e.clientX - rect.left}px`);
@@ -19,32 +19,30 @@ export function Closing() {
 
   return (
     <section
-      className="relative overflow-hidden py-32"
+      className="relative py-28 md:py-36"
       onMouseMove={reduceMotion ? undefined : handleFollow}
     >
-      {/* Bottom bloom */}
-      <div
-        className="pointer-events-none absolute bottom-[-20%] left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-kidan-indigo/20 blur-[120px]"
-        aria-hidden
-      />
-      {/* Cursor-follow radial (centered until the pointer provides coordinates) */}
+      {/* Cursor-follow radial (tighter than before — 480px) */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(640px circle at var(--cx, 50%) var(--cy, 50%), rgba(58,79,214,0.12), transparent 60%)",
+            "radial-gradient(480px circle at var(--cx, 50%) var(--cy, 50%), rgba(58,79,214,0.08), transparent 60%)",
         }}
         aria-hidden
       />
 
       <div className="container relative z-10 mx-auto px-6">
         <Reveal>
+          {/* Single rotating conic moment on the page */}
           <BorderGlow
             speed={14}
             className="mx-auto max-w-4xl text-center shadow-[0_0_90px_-24px_rgba(58,79,214,0.55)]"
           >
-            <h2 className="mb-6 font-grotesk text-4xl font-bold leading-tight text-kidan-ivory md:text-5xl lg:text-6xl">
-              {cryptoClosing.headline}
+            <h2 className="mb-6 font-grotesk text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              <span className="text-gradient-vertical">
+                {cryptoClosing.headline}
+              </span>
             </h2>
             <p className="mx-auto mb-10 max-w-2xl font-sans text-lg text-kidan-slate md:text-xl">
               {cryptoClosing.subline}

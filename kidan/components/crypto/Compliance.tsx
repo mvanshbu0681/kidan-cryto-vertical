@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Shield } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
+import GlareHover from "@/components/react-bits/GlareHover";
+import FadeContent from "@/components/react-bits/FadeContent";
+import { SectionPill } from "@/components/crypto/ui/SectionPill";
+import { TerminalPanel } from "@/components/crypto/ui/TerminalPanel";
 import { Reveal, RevealGroup, REVEAL_EASE } from "@/components/crypto/ui/Reveal";
 import { cryptoCompliance } from "@/content/crypto";
-import { usePrefersReducedMotion } from "@/lib/motion";
 
 /** Distilled from the locked compliance copy — no invented commitments. */
 const TRUST_CHECKLIST = [
@@ -27,52 +29,23 @@ const CHECK_POP = {
 };
 
 export function Compliance() {
-  const reduceMotion = usePrefersReducedMotion();
-
   return (
-    <section className="relative overflow-hidden py-24">
-      {/* Border beam — travels the section top once on enter, then rests */}
-      <motion.div
-        className="absolute top-0 h-px w-40 bg-gradient-to-r from-transparent via-kidan-lightIndigo/80 to-transparent"
-        initial={reduceMotion ? false : { x: "-20vw", opacity: 0 }}
-        whileInView={{ x: "120vw", opacity: [0, 1, 0] }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 1.6, ease: "easeInOut" }}
-        aria-hidden
-      />
-
+    <section className="relative py-24 md:py-28">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <Reveal>
-              <div className="relative mb-8 w-fit">
-                {/* Soft indigo halo behind the shield ring */}
-                <div
-                  className="absolute -inset-3 rounded-full bg-kidan-indigo/25 blur-xl"
-                  aria-hidden
-                />
-                <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-kidan-indigo/40 bg-kidan-ink/80 shadow-[0_0_36px_-4px_rgba(58,79,214,0.55)]">
-                  <Shield
-                    className="h-6 w-6 text-kidan-lightIndigo"
-                    aria-hidden
-                  />
-                </div>
-              </div>
+            <FadeContent duration={0.6}>
               <h2 className="mb-6 font-grotesk text-3xl font-bold text-kidan-ivory md:text-4xl">
                 Compliance and trust
               </h2>
               <div className="flex flex-wrap gap-2" aria-label="Markets served">
                 {REGIONS.map((region) => (
-                  <Badge
-                    key={region}
-                    variant="secondary"
-                    className="can-hover:hover:border-kidan-indigo/60 can-hover:hover:text-kidan-ivory"
-                  >
+                  <SectionPill key={region} size="sm">
                     {region}
-                  </Badge>
+                  </SectionPill>
                 ))}
               </div>
-            </Reveal>
+            </FadeContent>
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.15}>
@@ -107,15 +80,30 @@ export function Compliance() {
                 ))}
               </ul>
             </RevealGroup>
-
-            {/* Trust pull-quote, not body text */}
-            <Reveal delay={0.1}>
-              <p className="border-l-2 border-kidan-indigo pl-6 font-grotesk text-xl font-bold leading-snug text-kidan-ivory md:text-2xl">
-                {cryptoCompliance.paragraphs[1]}
-              </p>
-            </Reveal>
           </div>
         </div>
+
+        {/* Pull-quote block — Nutriseed testimonial language */}
+        <Reveal delay={0.2}>
+          <GlareHover glareOpacity={0.18} glareSize={360} className="mt-12 rounded-xl">
+          <TerminalPanel
+            edgeGlow="always"
+            lift={false}
+            spotlight={false}
+            cornerGlare={false}
+            className="border-kidan-navymid/80 bg-kidan-card/92"
+          >
+            <blockquote className="px-8 py-10 md:px-12 md:py-12">
+              <p className="font-grotesk text-2xl font-bold leading-snug text-kidan-ivory md:text-3xl lg:text-4xl">
+                {cryptoCompliance.paragraphs[1]}
+              </p>
+              <footer className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-kidan-slate">
+                Compliance and trust
+              </footer>
+            </blockquote>
+          </TerminalPanel>
+          </GlareHover>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import GlareHover from "@/components/react-bits/GlareHover";
+import FadeContent from "@/components/react-bits/FadeContent";
 import { TerminalPanel } from "@/components/crypto/ui/TerminalPanel";
 import { Reveal } from "@/components/crypto/ui/Reveal";
 import { cryptoProblem } from "@/content/crypto";
@@ -13,7 +15,7 @@ function Highlighted({ text, phrases }: { text: string; phrases: readonly string
   return (
     <>
       {parts.map((part, i) =>
-        phrases.includes(part) ? (
+        phrases.includes(part as (typeof phrases)[number]) ? (
           <strong key={i} className="font-semibold text-kidan-ivory">
             {part}
           </strong>
@@ -27,18 +29,13 @@ function Highlighted({ text, phrases }: { text: string; phrases: readonly string
 
 export function Problem() {
   return (
-    <section className="relative py-32">
-      {/* Ground beat between the ProofBar card and the Services slab */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-ground-radial"
-        aria-hidden
-      />
+    <section className="relative py-24 md:py-28">
       <div className="container relative z-10 mx-auto px-6">
-        <Reveal>
-          <h2 className="mb-12 font-mono text-sm uppercase tracking-widest text-kidan-indigo">
+        <FadeContent className="mb-12" duration={0.6}>
+          <h2 className="max-w-2xl font-grotesk text-3xl font-bold text-kidan-ivory md:text-4xl">
             {cryptoProblem.eyebrow}
           </h2>
-        </Reveal>
+        </FadeContent>
 
         <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
           {/* Failure mode — muted, cooler, grounded */}
@@ -46,7 +43,8 @@ export function Problem() {
             <TerminalPanel
               edgeGlow="none"
               lift={false}
-              className="h-full border-kidan-navymid/60 bg-kidan-obsidian/60"
+              cornerGlare={false}
+              className="h-full border-kidan-navymid/80 bg-kidan-card/88"
             >
               <article className="flex h-full flex-col p-8 md:p-10">
                 <p className="mb-6 font-mono text-xs font-bold uppercase tracking-[0.2em] text-kidan-slate">
@@ -59,11 +57,11 @@ export function Problem() {
             </TerminalPanel>
           </Reveal>
 
-          {/* vs divider — glass circle with a soft indigo ring */}
+          {/* vs divider — glass circle with a soft indigo ring pulse */}
           <div className="flex items-center justify-center lg:h-auto">
             <Reveal delay={0.15}>
               <span
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-kidan-indigo/40 bg-kidan-ink/60 font-mono text-[10px] font-bold uppercase tracking-widest text-kidan-lightIndigo shadow-[0_0_28px_-6px_rgba(58,79,214,0.55)] backdrop-blur-md"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-kidan-indigo/40 bg-kidan-ink/45 font-mono text-[10px] font-bold uppercase tracking-widest text-kidan-lightIndigo shadow-[0_0_28px_-6px_rgba(58,79,214,0.55)] animate-node-pulse motion-reduce:animate-none"
                 aria-hidden
               >
                 vs
@@ -71,9 +69,15 @@ export function Problem() {
             </Reveal>
           </div>
 
-          {/* What we do differently — accent edge always faintly on */}
+          {/* What we do differently — accent edge + cursor glare */}
           <Reveal delay={0.3} className="h-full">
-            <TerminalPanel edgeGlow="always" spotlight className="h-full bg-kidan-card">
+            <GlareHover glareOpacity={0.2} glareSize={300} className="h-full rounded-xl">
+            <TerminalPanel
+              edgeGlow="always"
+              spotlight={false}
+              cornerGlare={false}
+              className="h-full border-kidan-navymid/80 bg-kidan-card/92"
+            >
               <article className="flex h-full flex-col p-8 md:p-10">
                 <p className="mb-6 font-mono text-xs font-bold uppercase tracking-[0.2em] text-kidan-lightIndigo">
                   Us
@@ -86,6 +90,7 @@ export function Problem() {
                 </p>
               </article>
             </TerminalPanel>
+            </GlareHover>
           </Reveal>
         </div>
       </div>

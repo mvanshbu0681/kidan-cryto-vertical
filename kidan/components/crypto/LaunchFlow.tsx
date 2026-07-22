@@ -3,6 +3,7 @@
 import { Fragment, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { TerminalPanel } from "@/components/crypto/ui/TerminalPanel";
+import { SectionPill } from "@/components/crypto/ui/SectionPill";
 import { Reveal, REVEAL_EASE } from "@/components/crypto/ui/Reveal";
 import { cryptoLaunchSteps } from "@/content/crypto";
 import { useIsMobile, usePrefersReducedMotion } from "@/lib/motion";
@@ -35,12 +36,16 @@ function NodeCard({
       className="h-full"
     >
       <TerminalPanel
+        spotlight
         edgeGlow="hover"
         className={cn(
           "h-full p-6 transition-opacity duration-500",
           active ? "opacity-100" : "opacity-70"
         )}
       >
+        <p className="mb-3 font-mono text-sm font-bold text-kidan-lightIndigo">
+          {NODE_NUMBERS[index]}
+        </p>
         <h3 className="mb-2 font-grotesk text-lg font-bold text-kidan-ivory">
           {step.title}
         </h3>
@@ -139,18 +144,11 @@ export function LaunchFlow() {
   });
 
   return (
-    <section
-      id="how"
-      className="relative scroll-mt-24 border-b border-kidan-navymid py-24"
-    >
-      {/* Ground beat: radial instead of the obsidian slab that Services just used */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-ground-radial"
-        aria-hidden
-      />
+    <section id="how" className="relative scroll-mt-24 py-24 md:py-28">
       <div className="container relative z-10 mx-auto px-6">
         <Reveal>
-          <h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-kidan-indigo">
+          <SectionPill className="mb-4">How a launch runs</SectionPill>
+          <h2 className="mb-4 font-grotesk text-3xl font-bold text-kidan-ivory md:text-4xl">
             How a launch runs with us
           </h2>
           <SequencedHeadline reduceMotion={reduceMotion} />
