@@ -39,21 +39,19 @@
     #2a35a0
   );
 
-  /* Static CSS replacement for the WebGL hero veil (perf rule: CSS+SVG over shaders) */
+  /*
+   * Asymmetric studio-light veil — top-right lamp glow + faint left-edge bleed.
+   * No centred dark ellipse so the hero doesn't read as a designed container.
+   */
   --background-image-hero-veil: radial-gradient(
-      ellipse 60% 50% at 78% 12%,
-      rgba(58, 79, 214, 0.32) 0%,
-      transparent 60%
+      ellipse 62% 88% at 102% -2%,
+      rgba(102, 117, 234, 0.28) 0%,
+      transparent 55%
     ),
     radial-gradient(
-      ellipse 45% 40% at 12% 85%,
-      rgba(58, 79, 214, 0.14) 0%,
+      ellipse 28% 68% at -3% 48%,
+      rgba(58, 79, 214, 0.13) 0%,
       transparent 65%
-    ),
-    radial-gradient(
-      ellipse 90% 70% at 50% 40%,
-      rgba(21, 25, 34, 0.6) 0%,
-      transparent 100%
     );
 
   /* Top-edge glow that lights up on service-card hover */

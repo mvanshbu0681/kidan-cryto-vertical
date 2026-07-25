@@ -14,13 +14,19 @@ export type ProofStat = {
   label: string;
 };
 
+/** Case-study metadata strip below the hero headline. */
+export type HeroMetaItem = {
+  label: string;
+  value: string;
+};
+
 export type ServiceCard = {
   id: string;
-  number: string;
-  category: string;
+  /** Short Nutriseed-style card title (e.g. "Creator and KOL campaigns"). */
   title: string;
+  /** Supporting paragraph under the title. */
   body: string;
-  /** Maps to a lucide icon in components/crypto/Services.tsx — keeps content JSON-serializable for CMS. */
+  /** Maps to a lucide icon if needed — keeps content JSON-serializable for CMS. */
   iconKey: "users" | "zap" | "sparkles" | "messages";
 };
 
@@ -61,6 +67,14 @@ export const cryptoHero = {
     href: "#how",
   },
 } as const;
+
+/** Hero metadata strip — case-study style, not vanity numbers (those live in Proof). */
+export const cryptoHeroMeta: HeroMetaItem[] = [
+  { label: "Clients", value: "Tokens · Exchanges · Wallets" },
+  { label: "Markets", value: "UAE · UK · US" },
+  { label: "Model", value: "Strategy · Creative · KOL · Paid" },
+  { label: "Focus", value: "Launch & prove every dollar" },
+];
 
 export const cryptoTickerPhrases = [
   "NEW ROUTE /crypto",
@@ -112,40 +126,32 @@ export const cryptoProblem = {
 export const cryptoServices: ServiceCard[] = [
   {
     id: "creator-kol",
-    number: "01",
-    category: "CREATOR AND KOL CAMPAIGNS",
-    title: "Route your launch through creators your buyers already trust.",
-    body: "Sixty thousand creators across TikTok, Instagram, YouTube and X. We match by audience, brief so the message survives the edit, and measure each creator on their own numbers. No spray, no one-post-and-gone.",
+    title: "Creator and KOL campaigns",
+    body: "Route your launch through creators your buyers already trust. Sixty thousand creators across TikTok, Instagram, YouTube and X — matched by audience, briefed so the message survives the edit, and measured on their own numbers. No spray, no one-post-and-gone.",
     iconKey: "users",
   },
   {
     id: "performance-paid",
-    number: "02",
-    category: "PERFORMANCE AND PAID",
-    title:
-      "Paid media that lives inside the rules, not one violation from a ban.",
-    body: "We run across the channels that approve crypto and the native networks built for it. Every campaign is tracked to on-chain and off-chain conversions, so spend follows what actually brings holders in.",
+    title: "Performance and paid",
+    body: "Paid media that lives inside the rules, not one violation from a ban. We run across the channels that approve crypto and the native networks built for it — tracked to on-chain and off-chain conversions so spend follows what actually brings holders in.",
     iconKey: "zap",
   },
   {
     id: "brand-creative",
-    number: "03",
-    category: "BRAND AND CREATIVE",
-    title:
-      "Positioning you can say in a sentence, and video at the volume the feed demands.",
-    body: "Our studio turns a whitepaper into a story a normal person understands, then produces the high-volume video that keeps a token in the conversation past launch week.",
+    title: "Brand and creative",
+    body: "Positioning you can say in a sentence, and video at the volume the feed demands. Our studio turns a whitepaper into a story a normal person understands, then produces the high-volume video that keeps a token in the conversation past launch week.",
     iconKey: "sparkles",
   },
   {
     id: "community-growth",
-    number: "04",
-    category: "COMMUNITY AND GROWTH",
-    title:
-      "A community that holds, not a Discord that empties after the airdrop.",
-    body: "Ambassador programs, Telegram and Discord growth, and always-on content that gives holders a reason to stay. We build the room and we keep it warm.",
+    title: "Community and growth",
+    body: "A community that holds, not a Discord that empties after the airdrop. Ambassador programs, Telegram and Discord growth, and always-on content that gives holders a reason to stay. We build the room and we keep it warm.",
     iconKey: "messages",
   },
 ];
+
+export const cryptoServicesIntro =
+  "Four ways we run a crypto launch — creators, paid, creative and community — built as one system, not four vendor handoffs.";
 
 export const cryptoCompliance = {
   paragraphs: [
@@ -154,11 +160,30 @@ export const cryptoCompliance = {
   ],
 } as const;
 
+export type ClosingOutcome = {
+  label: string;
+  value: string;
+};
+
+/**
+ * Closing CTA — Kidan "Get In Touch" craft: split headline, quiet assurance,
+ * and a structured outcomes rail (not a centered gradient box).
+ */
 export const cryptoClosing = {
-  headline:
-    "Tell us what you are launching. We will tell you how we would run it.",
+  eyebrow: "Next step",
+  headlineLead: "Tell us what you are launching.",
+  headlineAccent: "We will tell you how we would run it.",
   subline:
     "One call, no deck theatre. You leave with a real view of the first ninety days.",
+  /** Quiet note beside the primary CTA — reduces click anxiety. */
+  ctaNote: "Honest fit check",
+  railLabel: "You leave with",
+  railIndex: "01 / Call",
+  outcomes: [
+    { label: "Format", value: "One focused call" },
+    { label: "Prep", value: "No deck theatre" },
+    { label: "Outcome", value: "A real 90-day view" },
+  ] as const satisfies readonly ClosingOutcome[],
 } as const;
 
 /**
