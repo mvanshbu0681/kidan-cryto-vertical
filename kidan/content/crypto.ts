@@ -77,13 +77,13 @@ export const cryptoHeroMeta: HeroMetaItem[] = [
 ];
 
 export const cryptoTickerPhrases = [
-  "NEW ROUTE /crypto",
-  "60,000+ CREATOR NETWORK",
-  "KOL",
-  "PAID",
-  "CREATIVE",
-  "COMMUNITY",
+  "TOKEN LAUNCHES",
+  "EXCHANGES",
+  "WALLETS",
+  "CREATOR & KOL",
   "COMPLIANCE-AWARE ADS",
+  "UAE · UK · US",
+  "ONE TEAM · STRATEGY TO PAID",
 ] as const;
 
 /** Single string for CurvedLoop — phrases joined for path readability */

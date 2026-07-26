@@ -69,6 +69,21 @@
     #6675ea 55%,
     #3a4fd6 100%
   );
+
+  /* Card gradient — rich indigo wash for accent cards (Problem "Us", featured service) */
+  --background-image-card-indigo: linear-gradient(
+    135deg,
+    rgba(58, 79, 214, 0.38) 0%,
+    rgba(26, 21, 96, 0.28) 42%,
+    rgba(21, 25, 34, 0.92) 100%
+  );
+
+  /* Card gradient — subtle top-edge tint for secondary accent cards */
+  --background-image-card-subtle: linear-gradient(
+    160deg,
+    rgba(102, 117, 234, 0.16) 0%,
+    rgba(21, 25, 34, 0.95) 55%
+  );
   --shadow-cta-glow: 0 10px 36px -10px rgba(58, 79, 214, 0.65),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
   --shadow-cta-glow-hover: 0 18px 56px -12px rgba(102, 117, 234, 0.8),
